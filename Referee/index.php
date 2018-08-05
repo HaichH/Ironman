@@ -37,6 +37,8 @@
 
     <!-- Demo scripts for this page-->
     <script src="Referee/js/RefereeData.js"></script>
+    <script src="Referee/js/jquery.fixedtableheader.min.js"></script>
+    <script src="Referee/js/jquery.inview.min.js"></script>
 
   </head>
 
@@ -213,29 +215,29 @@
           </div>
 
           <!-- DataTables Example -->
-          <div class="card mb-3">
+          <div class="card mb-3" style="overflow-y: scroll;">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              All Pending Penalties</div>
+              Your penalty box <div style="width: 30%;margin: auto;padding: 10px; display: inline;"><input type="text" id="ath_finder" placeholder="Search penalty box"></div><span class="right_text">Last Refreshed: <span id="last_ref"></span></span></div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                 
+                 <tr><th>Athlete Details</th><th>Penalty Due:</th><th>Reasons:</th><th>Tent:</th><th>Arrived?</th></tr>
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Data is automatically added</div>
+              <div class="card-footer small text-muted">Data is automatically added </div>
           </div>
           
           <!-- For deleted folks -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Disqualified Athletes</div>
+              Disqualified Athletes  <span class="right_text">Last Refreshed: <span id="last_ref"></span></span></div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="delPeople" width="100%" cellspacing="0">
-                 
+                    <tr><th>Athlete: </th><th>Reason: </th></tr>
                 </table>
               </div>
             </div>

@@ -94,21 +94,24 @@ switch ($action){
     
     case 'pending_penalties':
         $pending = $referee->getPendingPenalties();
-        $results ='';
-        if ($pending==NULL) {
-            $results.='<tr><td>Nothing for now</td></tr>';
-        } else {
-           
-            foreach ($pending as $value) {
-                $results.='<tr>';
-                $results.= '<td>'.$value[0].'</td> <td>'.$value[1].'</td> <td>'.$value[2].'</td> <td>'.$value[3].'</td> ';
-               $results.='</tr>'; 
-            }
-            
-        }
+//        $results ='';
+//        if ($pending==NULL) {
+//            $results.='<tr><td>Nothing for now</td></tr>';
+//        } else {
+//           
+//            foreach ($pending as $value) {
+//                $results.='<tr>';
+//                $results.= '<td>'.$value[0].'</td> <td>'.$value[1].'</td> <td>'.$value[2].'</td> <td>'.$value[3].'</td> ';
+//               $results.='</tr>'; 
+//            }
+//            
+//        }
+//        
+//         $return_data = array("pending_people" => $results);
+//        $return_data = json_encode($return_data);
+//        echo $return_data;
         
-         $return_data = array("pending_people" => $results);
-        $return_data = json_encode($return_data);
+        $return_data = json_encode($pending);
         echo $return_data;
         break;
         
@@ -123,22 +126,22 @@ switch ($action){
     break;
 
 case 'get_disq':
-     $disq = $referee->getPendingPenalties();
-        $results ='';
-        if ($disq==NULL) {
-            $results.='<tr><td>Nothing for now</td></tr>';
-        } else {
-           
-            foreach ($disq as $value) {
-                $results.='<tr>';
-                $results.= '<td> Racer ID: '.$value[0].'</td>';
-               $results.='</tr>'; 
-            }
-            
-        }
+     $disq = $referee->getDesqualified();
+//        $results ='';
+//        if ($disq==NULL) {
+//            $results.='<tr><td>Nothing for now</td></tr>';
+//        } else {
+//           
+//            foreach ($disq as $value) {
+//                $results.='<tr>';
+//                $results.= '<td> Racer ID: '.$value[0].'</td>';
+//               $results.='</tr>'; 
+//            }
+//            
+//        }
         
-         $return_data = array("disq_people" => $results);
-        $return_data = json_encode($return_data);
+//         $return_data = array("disq_people" => $results);
+        $return_data = json_encode($disq);
         echo $return_data;
     break;
 }
