@@ -162,16 +162,18 @@ function TestHaich(){
 }
 
 
-function StartTimer(a,x) {
+function StartTimer(a,x, exists) {
     var name = a;
-    var start_time = new Date();
     var x = parseInt(x);
-    ;
-    if(x>0) {
-        
-        $('#'+name).html(x+"s");
-       
-        setTimeout(function(){ StartTimer(name, x-1);}, 1000);
+    var entered = exists;
+    if(entered===false){
+        //Update Database
+        var dte = new Date();
+        timestampPenalty(true, dte, name);
+    }
+    if(x>0) {        
+        $('#'+name).html(x+"s");       
+        setTimeout(function(){ StartTimer(name, x-1,true);}, 1000);
     } else if(x==0) {
         //Notify Athlete to start moving again:
         var img = 'ironman.jpg';
@@ -179,28 +181,13 @@ function StartTimer(a,x) {
         var notification = new Notification('Alert Racer', { body: text, icon: img });
         $('#'+name).html("Athlete may proceed");
          var end_time = new Date();
-        // no timer needed to be cleaned up
-      // TimeStampAthlete(name, start_time,end_time);
-       var data = {action:'update_penalty', ath_id:name, start_time: start_time, end_time: end_time}; // Create JSON which will be sent via Ajax	
-        $.ajax({ // jQuery Ajax
-		type: 'POST',
-		url: 'index.php', // URL to the PHP file which will insert new value in the database
-		data: data, // We send the data string
-		dataType: 'json', // Json format
-		timeout: 120000,
-		success: function(data) {
-                    getPendingPenalties();
-                     updateOverview();
-		},
-		error: function(error , status) {
-                    window.alert("Error"+error+"Status"+status);
-		}
-});
+  //Update Database
+       timestampPenalty(false, end_time, name);
     }
     
 }
 
-function remember_time
+
 
 function TimeStampAthlete(ath_id, start_time, end_time){
     var data = {action:'update_penalty', ath_id:ath_id, start_time: start_time, end_time: end_time}; // Create JSON which will be sent via Ajax	
@@ -241,7 +228,7 @@ function getPendingPenalties(){
                    " <td><div class= 'tickets blue_ticket'"+">x"+currentObject[5]+"</div>"+
                    "<div class= 'tickets yellow_ticket ' "+">x"+currentObject[4]+"</div></td> "+
                    " <td>"+currentObject[3]+"</td>" +
-                   " <td><input type="+"button value=Start Timer onclick= StartTimer('"+currentObject[0]+"'"+","+currentObject[1]+")></td> ";
+                   " <td><input type="+"button value=Start Timer onclick= StartTimer('"+currentObject[0]+"'"+","+currentObject[1]+","+"false"+")></td> ";
                     athlete_element.innerHTML = athlete_update;
                     
                 }else{
@@ -253,7 +240,7 @@ function getPendingPenalties(){
                    " <td><div class='tickets blue_ticket'"+">x"+currentObject[5]+"</div>"+
                    "<div class='tickets yellow_ticket'"+">x"+currentObject[4]+"</div></td> "+
                    " <td>"+currentObject[3]+"</td>" +
-                   " <td><input type="+"button value=Start Timer onclick= StartTimer('"+currentObject[0]+"'"+","+currentObject[1]+")></td> "+
+                   " <td><input type="+"button value=Start Timer onclick= StartTimer('"+currentObject[0]+"'"+","+currentObject[1]+","+"false"+")></td> "+
                    " </tr>";
                 
                 }                      
@@ -317,6 +304,12 @@ function removeDisqualifiedAthlete(athlete){
         //Athlete does have pending penalties, remove entry because Athlete is disqualified
         a.remove();
     }
+}
+
+function timestampPenalty(arrived, timestamp, athlete_id){
+var stampWorker = new Worker('Referee/js/timeRunner.js');
+stampWorker.postMessage([arrived,timestamp,athlete_id]);
+console.log("Sent Racer: "+ athlete_id+" Details of time: "+ timestamp+". Penalty Status: "+arrived);
 }
 
 

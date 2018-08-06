@@ -78,4 +78,23 @@ class DBModelReferee {
         return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
+    function addArrivalTimestamp($athlete_id, $time) {
+        
+        $stored_procedure ="uspArrivalTime(?,?)";
+         $param = array(
+          $athlete_id, 
+             $time    
+        );
+        return DBhelper::sp_NonQueryStatementsParams($stored_procedure, $param);
+    }
+    
+    function addDepatureTimeStamp($athlete_id, $time) {
+        $stored_procedure ="uspDepartureTime(?,?)";
+         $param = array(
+          $athlete_id, 
+             $time    
+        );
+        return DBhelper::sp_NonQueryStatementsParams($stored_procedure, $param);
+    }
+    
 }

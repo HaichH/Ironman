@@ -144,5 +144,17 @@ case 'get_disq':
         $return_data = json_encode($disq);
         echo $return_data;
     break;
+
+    case 'arrive_time':
+    $ath_id = filter_input(INPUT_GET, 'ath_id');
+    $time = filter_input(INPUT_GET, 'time_arrived');
+    $success = $referee->addArrivalTimestamp($ath_id, $time);
+    break;
+
+    case 'departure_time':
+     $ath_id = filter_input(INPUT_GET, 'ath_id');
+    $time = filter_input(INPUT_GET, 'time_left');
+    $success = $referee->addDepatureTimeStamp($ath_id, $time);
+    break;
 }
 
