@@ -122,13 +122,13 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Quick Access:</h6>
-            <a class="dropdown-item" href="Referee/login.html">Export to PDF</a>
+            <a class="dropdown-item" href="Referee/login.html" target="_blank">Export to PDF</a>
             <a class="dropdown-item" href="Referee/register.html">Search Athletes</a>
             <a class="dropdown-item" href="Referee/forgot-password.html">Forgot Password</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
             <a class="dropdown-item" href="Referee/404.html">Display Disqualified</a>
-            <a class="dropdown-item" href="Referee/blank.html">View Administered Penalties</a>
+            <a class="dropdown-item" href="?action=view_administered" target="_blank">Administered Penalties</a>
           </div>
         </li>
 

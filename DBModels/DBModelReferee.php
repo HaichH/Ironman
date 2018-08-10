@@ -96,5 +96,13 @@ class DBModelReferee {
         );
         return DBhelper::sp_NonQueryStatementsParams($stored_procedure, $param);
     }
+    function getAdministered() {
+        $stored_procedure ="uspAdministered";
+        return DBhelper::sp_SelectStatement($stored_procedure);
+    }
+    
+    function getAdministeredRefresh($last_refresh) {
+      $stored_procedure ="uspAdministered"; 
+    }
     
 }

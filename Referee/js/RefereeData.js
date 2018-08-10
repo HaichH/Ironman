@@ -292,11 +292,12 @@ function getDisPeople(){
 });
 }
 //Keep Data RUNNING 
-setTimeout(function(){  
+setInterval(function(){  
     getPendingPenalties();
     updateOverview();
     getDisPeople();
-}, 60000);
+    document.getElementById("last_ref").innerHTML = new Date();
+}, 10000);
 
 function removeDisqualifiedAthlete(athlete){
     var a  = document.getElementById("Athlete"+athlete);
@@ -312,7 +313,9 @@ stampWorker.postMessage([arrived,timestamp,athlete_id]);
 console.log("Sent Racer: "+ athlete_id+" Details of time: "+ timestamp+". Penalty Status: "+arrived);
 }
 
-
+function getAdministered(){
+    
+}
 //     //Make notifications to alert athletes to proceed   
 //        Notification.requestPermission(function (permission) {
 //      // If the user accepts, let's create a notification

@@ -16,8 +16,8 @@ if($action == NULL) {
 $referee = new DBModelReferee();
 switch ($action){
     
-    case'home':
-        include 'index.html';
+    case'dashboard':
+        include 'index.php';
        break;
    
    case'login':
@@ -156,5 +156,15 @@ case 'get_disq':
     $time = filter_input(INPUT_GET, 'time_left');
     $success = $referee->addDepatureTimeStamp($ath_id, $time);
     break;
+
+    case'view_administered':
+        include 'Referee/blank.html';
+    break;
+
+    case 'get_all_adminstered':
+        $adminstered = $referee->getAdministered();
+        $return_data = json_encode($adminstered);
+        echo $return_data;
+        break;
 }
 
