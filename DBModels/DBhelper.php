@@ -7,15 +7,15 @@ When using this class specifically it is really important to note:
  * As of SQLSRV3.0 prebuilt methods use the sqlsrv_connect syntax, that is sqlsrv_'method_name'
  *  */
 class   DBhelper{
-private static $server_address = "127.0.0.1"; //"204.246.56.130"; //Use 127.0.0.1 or localhost if using your own machine for testing
+private static $server_address = "204.246.56.130"; //Use 127.0.0.1 or localhost if using your own machine for testing
 private static $database_name="ironman"; //name of the database we would like to connect to
 private static $connection_object;
 public static $is_connected_to_DB = FALSE;
 public static $count=0;
 private static function connectToDB(){
     $connection_params = array(	
-       // "UID" => "ironman" ,
-       // "PWD" => "Zb599q0H2_f_", 
+       "UID" => "ironman" ,
+       "PWD" => "Zb599q0H2_f_", 
 	"Database" => self::$database_name
 	);
         self::$connection_object =sqlsrv_connect(self::$server_address,$connection_params);   

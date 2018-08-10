@@ -119,10 +119,12 @@
                      document.getElementById("lstRefresh").innerHTML = new Date();
                     if(data.length>0 || data!==null){   
                     document.getElementById("states").innerHTML = "Found Administered";
-                    
+                    document.getElementById("tblAdministered").innerHTML ="";
+                   document.getElementById("tblAdministered").innerHTML =
+                           "<tr><th>Racer No: </th> <th>Surname: </th> <th>Time Arrived</th> <th>Time Left: </th> <th>Penalty Type: </th> </tr>";
                     for(var i = 0; i < data.length; i++){
                          var currentObject = data[i];
-                         document.getElementById("tblAdministered").innerHTML+= 
+                         document.getElementById("tblAdministered").innerHTML += 
                            "<tr> " +
                            "<td>"+currentObject[0]+"</td> <td>"+currentObject[1]+"</td> <td>"+currentObject[2]+"</td> <td>"+currentObject[3]+"</td> <td>"+currentObject[4]+"</td>"
                            +" </tr>";      

@@ -313,20 +313,18 @@ stampWorker.postMessage([arrived,timestamp,athlete_id]);
 console.log("Sent Racer: "+ athlete_id+" Details of time: "+ timestamp+". Penalty Status: "+arrived);
 }
 
-function getAdministered(){
+
+     //Make notifications to alert athletes to proceed   
+        Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there! We'll appear here when Athletes should move.");
+      }
+    });
     
-}
-//     //Make notifications to alert athletes to proceed   
-//        Notification.requestPermission(function (permission) {
-//      // If the user accepts, let's create a notification
-//      if (permission === "granted") {
-//        var notification = new Notification("Hi there! We'll appear here when Athletes should move.");
-//      }
-//    });
-//    
-//    
-//
-////Prevent user from refreshing the page
-//window.onbeforeunload = function() {
-//            return "you can not refresh the page";
-//        }
+    
+
+//Prevent user from refreshing the page
+window.onbeforeunload = function() {
+            return "you can not refresh the page";
+        }

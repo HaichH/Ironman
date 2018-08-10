@@ -25,13 +25,13 @@ onmessage = function(e){
     var arrived = e.data[0];
     if (arrived===true) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "http://localhost:82/Ironman/index.php?action=arrive_time&ath_id="+athlete_id+"&time_arrived="+timestamp, true);
+        xhr.open('GET', "http://localhost/Ironman/index.php?action=arrive_time&ath_id="+athlete_id+"&time_arrived="+timestamp, true);
         xhr.send(null);
 
 
     }else{
       var xhr = new XMLHttpRequest();
-        xhr.open('GET', "http://localhost:82/Ironman/index.php?action=departure_time&ath_id="+athlete_id+"&time_left="+timestamp, true);
+        xhr.open('GET', "http://localhost/Ironman/index.php?action=departure_time&ath_id="+athlete_id+"&time_left="+timestamp, true);
         xhr.send(null);
     }
     

@@ -149,12 +149,16 @@ case 'get_disq':
     $ath_id = filter_input(INPUT_GET, 'ath_id');
     $time = filter_input(INPUT_GET, 'time_arrived');
     $success = $referee->addArrivalTimestamp($ath_id, $time);
+    $return_data = json_encode($success);
+        echo $return_data;
     break;
 
     case 'departure_time':
      $ath_id = filter_input(INPUT_GET, 'ath_id');
     $time = filter_input(INPUT_GET, 'time_left');
     $success = $referee->addDepatureTimeStamp($ath_id, $time);
+    $return_data = json_encode($success);
+        echo $return_data;
     break;
 
     case'view_administered':
