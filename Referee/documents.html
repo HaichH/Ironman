@@ -9,19 +9,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administered Penalties</title>
+    <title>Download Documents</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="Referee/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="Referee/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
-    <link href="Referee/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="Referee/css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
     
      <!-- Bootstrap core JavaScript-->
     <script src="Referee/vendor/jquery/jquery.min.js"></script>
@@ -32,14 +32,44 @@
 
     <!-- Custom scripts for all pages-->
     <script src="Referee/js/sb-admin.min.js"></script>
+<!--Temporariry stylesheet -->
+<style>
+    .card_holder{
+        overflow: hidden;
+        width: 100%;
+        margin: 30px;
+    }
+.card {
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    margin: 5px;
+}
 
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+    margin: auto;
+    padding: 3px;
+}
+
+.container {
+    padding: 2px 16px;
+}
+</style>
   </head>
 
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">Administered Penalties </a>
+      <a class="navbar-brand mr-1" href="index.html">Documents</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -88,61 +118,52 @@
             <li class="breadcrumb-item">
               <a href="index.html">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Administered Penalties</li>
+            <li class="breadcrumb-item active">Documents</li>
           </ol>
 
           <!-- Page Content -->
           
-          <h1>Administered Penalties appear below</h1>
-          <h5>Data is automatically updated every 5 seconds</h5>
-          <div>
-              <div>
-                  
+          <h1>Find the document you're looking for</h1>
+          <h5>Documents will auto-download (might take a little while)</h5>
+          <div class="card_holder">
+              <!--Make cards, to advertise each document seperately-->
+              <div class="card">
+                  <img src="pdf.png" alt="Avatar" style="width:80%">
+                  <!--For Administered penalties -->
+                  <div class="container">
+                      <h4>Administered Penalties <span>(Download)</span></h4> 
+                    <p>Get a list of athletes who have served their penalties</p>
+                  </div>
               </div>
               
-              <script>
-                  getAdministered();
-                  
-                  setInterval(function(){
-                      getAdministered();
-                  },5000);
-                  
-                  function getAdministered(){
-                      var data = {action:'get_all_adminstered'}; // Create JSON which will be sent via Ajax	
-                $.ajax({ // jQuery Ajax
-		type: 'POST',
-		url: 'index.php', // URL to the PHP file which will insert new value in the database
-		data: data, // We send the data string
-		dataType: 'json', // Json format
-		timeout: 120000,
-		success: function(data) {
-                     document.getElementById("lstRefresh").innerHTML = new Date();
-                    if(data.length>0 || data!==null){   
-                    document.getElementById("states").innerHTML = "Found Administered";
-                    var persons = "";
-                    for(var i = 0; i < data.length; i++){
-                         var currentObject = data[i];
-                         persons += 
-                           "<tr> " +
-                           "<td>"+currentObject[0]+"</td> <td>"+currentObject[1]+"</td> <td>"+currentObject[2]+"</td> <td>"+currentObject[3]+"</td> <td>"+currentObject[4]+"</td>"
-                           +" </tr>";      
-                     }
-                     document.getElementById("tblAdministered").innerHTML = persons;
-                 }
-                     else{
-                         document.getElementById("states").innerHTML = "No new.";
-                     }
-		},
-		error: function(error , status) {
-                    window.alert("Error"+error+"Status"+status);
-		}
-                  });
-              }
-              </script>
-              <br> <label>Last Refreshed: <span id="lstRefresh"></span> &nbsp; &nbsp; Status: <span id="states"></span></label>
-              <table id="tblAdministered" width="100%" cellspacing="0" class="table table-bordered">
-                  <tr><th>Racer No: </th> <th>Surname: </th> <th>Time Arrived</th> <th>Time Left: </th> <th>Penalty Type: </th> </tr>
-              </table>
+              <div class="card">
+                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                  <!--For Disqualified penalties -->
+                  <div class="container">
+                    <h4><b>Disqualified Athletes <span>(Download)</span></b></h4> 
+                    <p>Get a list of athletes who have been eliminated </p>
+                  </div>
+              </div>
+              
+              <div class="card">
+                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                  <!--For most up to date un-administered penalties -->
+                  <div class="container">
+                      <h4><b>UN-Administered Penalties <span>(Download)</span></b></h4> 
+                    <p>Get a list of athletes still going to serve a penalty</p>
+                  </div>
+              </div>
+              
+              <div class="card">
+                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                   <!-- For a specific athlete -->
+                   <div class="container">
+                    <h4><b>Get Athlete History</b></h4>
+                    <input type="number" placeholder="Athlete ID" name="ath_id"> <input type="button" value="Search">
+                    <p>Enter Athlete number above and get athletes entire history</p>
+                   </div>
+              </div>
+              
           </div>
         </div>
         <!-- /.container-fluid -->
