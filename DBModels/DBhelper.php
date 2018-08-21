@@ -14,8 +14,8 @@ public static $is_connected_to_DB = FALSE;
 public static $count=0;
 private static function connectToDB(){
     $connection_params = array(	
-        "UID" => "ironman" ,
-        "PWD" => "Zb599q0H2_f_", 
+       "UID" => "ironman" ,
+       "PWD" => "Zb599q0H2_f_", 
 	"Database" => self::$database_name
 	);
         self::$connection_object =sqlsrv_connect(self::$server_address,$connection_params);   
