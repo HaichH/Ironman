@@ -12,16 +12,16 @@
     <title>Download Documents</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Referee/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="Referee/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="Referee/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="Referee/css/sb-admin.css" rel="stylesheet">
     
      <!-- Bootstrap core JavaScript-->
     <script src="Referee/vendor/jquery/jquery.min.js"></script>
@@ -32,6 +32,9 @@
 
     <!-- Custom scripts for all pages-->
     <script src="Referee/js/sb-admin.min.js"></script>
+    <script src='Referee/js/pdfmake.min.js'></script>
+    <script src='Referee/js/vfs_fonts.js'></script>
+    
 <!--Temporariry stylesheet -->
 <style>
     .card_holder{
@@ -69,9 +72,9 @@ img {
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">Documents</a>
+      <a class="navbar-brand mr-1" href="Referee/index.html">Documents</a>
 
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="Referee/#">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -82,12 +85,12 @@ img {
       <ul class="navbar-nav ml-auto ml-md-0">
      
         <li class="nav-item dropdown no-arrow">
-          <a   style="float: right;" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a   style="float: right;" class="nav-link dropdown-toggle" href="Referee/#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
            
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" href="Referee/#" data-toggle="modal" data-target="#logoutModal">Logout</a>
           </div>
         </li>
       </ul>
@@ -99,7 +102,7 @@ img {
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="?action=dashboard">
+          <a class="nav-link" href="Referee/?action=dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -116,7 +119,7 @@ img {
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
+              <a href="Referee/index.html">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Documents</li>
           </ol>
@@ -128,39 +131,43 @@ img {
           <div class="card_holder">
               <!--Make cards, to advertise each document seperately-->
               <div class="card">
-                  <img src="pdf.png" alt="Avatar" style="width:80%">
+                  <img src="Referee/pdf.png" alt="Avatar" style="width:80%">
                   <!--For Administered penalties -->
                   <div class="container">
                       <h4>Administered Penalties <span>(Download)</span></h4> 
                     <p>Get a list of athletes who have served their penalties</p>
+                    <div onclick=""><span class="fa fa-download"></span></div>
                   </div>
               </div>
               
               <div class="card">
-                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                  <img src="Referee/pdf.png" alt="Avatar" style="width:50%">
                   <!--For Disqualified penalties -->
                   <div class="container">
                     <h4><b>Disqualified Athletes <span>(Download)</span></b></h4> 
                     <p>Get a list of athletes who have been eliminated </p>
+                    <div onclick=""><span class="fa fa-download"></span></div>
                   </div>
               </div>
               
               <div class="card">
-                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                  <img src="Referee/pdf.png" alt="Avatar" style="width:50%">
                   <!--For most up to date un-administered penalties -->
                   <div class="container">
                       <h4><b>UN-Administered Penalties <span>(Download)</span></b></h4> 
                     <p>Get a list of athletes still going to serve a penalty</p>
+                    <div onclick="getUnAdministered()"><span class="fa fa-download"></span></div>
                   </div>
               </div>
               
               <div class="card">
-                  <img src="pdf.png" alt="Avatar" style="width:50%">
+                  <img src="Referee/pdf.png" alt="Avatar" style="width:50%">
                    <!-- For a specific athlete -->
                    <div class="container">
                     <h4><b>Get Athlete History</b></h4>
                     <input type="number" placeholder="Athlete ID" name="ath_id"> <input type="button" value="Search">
                     <p>Enter Athlete number above and get athletes entire history</p>
+                    <div onclick=""><span class="fa fa-download"></span></div>
                    </div>
               </div>
               
@@ -184,7 +191,7 @@ img {
     <!-- /#wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top rounded" href="Referee/#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
 
@@ -201,13 +208,58 @@ img {
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="Referee/login.html">Logout</a>
           </div>
         </div>
       </div>
     </div>
 
-   
+    <script>
+        //Will later move this script to the main javascript repository 
+        function getAdministered(){
+            
+        }
+        
+        function getDisqualified(){
+            
+        }
+        
+        function getUnAdministered(){
+            //RacerID	RacerSurname	PenaltyTime	TicketID	TicketName
+            //4444	Legodi          08:59:53.0000000  3             Blue
+        var dd = {
+        content: [
+          {
+
+            table: {
+              // headers are automatically repeated if the table spans over multiple pages
+              // you can declare how many rows should be treated as headers
+              headerRows: 1,
+              widths: [ '*', '*','*', '*' ],
+
+              body: [
+
+                
+                [ "Racer ID", "Racer Surname", "Penalty Time", "Ticket Name" ],
+                <?php for($i =0; $i< count($un_admin);$i++): ?>
+             <?php    echo '["'.$un_admin[$i][0].'","'.$un_admin[$i][1].'","'.$un_admin[$i][2].'","'.$un_admin[$i][4].'"],'; ?>                        
+                <?php endfor; ?>
+        ]
+      }
+    }
+  ]
+}; 
+       pdfMake.createPdf(dd).download('compile.pdf');	
+       }
+        
+        function getAthleteHistory(){
+            
+        }
+    </script>
+    
+    <script>
+        //This script is to call the methods and auto-download the content as if it the page didn't make a postback
+    </script>
     
   </body>
 

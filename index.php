@@ -170,5 +170,26 @@ case 'get_disq':
         $return_data = json_encode($adminstered);
         echo $return_data;
         break;
+    
+    case'pdf_admin':
+        break;
+    
+    case'pdf_dis':
+        break;
+    
+    case'pdf_un_admin':
+        $un_admin = $referee->pdf_un_administered();
+        $return_data = json_encode($un_admin);
+        echo $return_data;
+        break;
+    
+    case'pdf_history':
+        break;
+    
+    case'docs':
+        $un_admin = $referee->pdf_un_administered();
+      //  print_r($un_admin);
+       include 'Referee/documents.php';
+        break;
 }
 

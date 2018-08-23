@@ -101,8 +101,23 @@ class DBModelReferee {
         return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
-    function getAdministeredRefresh($last_refresh) {
-      $stored_procedure ="uspAdministered"; 
+    function pdf_administered() {
+         $stored_procedure ="";
+        return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
+    function pdf_disqualified() {
+         $stored_procedure ="";
+        return DBhelper::sp_SelectStatement($stored_procedure);
+    }
+    
+    function pdf_un_administered() {
+         $stored_procedure ="uspWEBPDFUnadministered";
+        return DBhelper::sp_SelectStatement($stored_procedure);
+    }
+    
+    function pdf_rider_history() {
+         $stored_procedure ="";
+        return DBhelper::sp_SelectStatement($stored_procedure);
+    }
 }
