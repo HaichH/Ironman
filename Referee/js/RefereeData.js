@@ -177,7 +177,7 @@ function StartTimer(a,x, exists) {
     } else if(x==0) {
         //Notify Athlete to start moving again:
         var img = 'ironman.jpg';
-        var text = 'Athlete'+ name+' can proceed';
+        var text = 'Athlete '+ name+' can proceed';
         var notification = new Notification('Alert Racer', { body: text, icon: img });
         $('#'+name).html("Athlete may proceed");
          var end_time = new Date();
