@@ -10,14 +10,14 @@ $action = filter_input(INPUT_POST, 'action');
 if($action == NULL) {
 		$action = filter_input(INPUT_GET, 'action');
 		if($action == NULL) {
-			$action = 'home';
+			$action = 'dashboard';
 		}
 }
 $referee = new DBModelReferee();
 switch ($action){
     
     case'dashboard':
-        include 'index.php';
+        include 'index.html';
        break;
    
    case'login':
@@ -172,23 +172,27 @@ case 'get_disq':
         break;
     
     case'pdf_admin':
+        $adminstered = $referee->pdf_administered();
+         include 'Referee/documents.php';
         break;
     
     case'pdf_dis':
+        $disq = $referee->pdf_disqualified();
+         include 'Referee/documents.php';
         break;
     
     case'pdf_un_admin':
         $un_admin = $referee->pdf_un_administered();
-        $return_data = json_encode($un_admin);
-        echo $return_data;
+       include 'Referee/documents.php';       
         break;
     
     case'pdf_history':
+        $ath_id = filter_input(INPUT_GET, 'ath_id');
+        $history = $referee->pdf_rider_history($ath_id);
+         include 'Referee/documents.php';
         break;
     
     case'docs':
-        $un_admin = $referee->pdf_un_administered();
-      //  print_r($un_admin);
        include 'Referee/documents.php';
         break;
 }

@@ -102,12 +102,12 @@ class DBModelReferee {
     }
     
     function pdf_administered() {
-         $stored_procedure ="";
+         $stored_procedure ="uspAdministered";
         return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
     function pdf_disqualified() {
-         $stored_procedure ="";
+         $stored_procedure ="uspGetDisqualifiedRacers";
         return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
@@ -116,8 +116,11 @@ class DBModelReferee {
         return DBhelper::sp_SelectStatement($stored_procedure);
     }
     
-    function pdf_rider_history() {
-         $stored_procedure ="";
-        return DBhelper::sp_SelectStatement($stored_procedure);
+    function pdf_rider_history($riderID) {
+         $stored_procedure ="uspWEBPDFAthleteHistory(?)";
+          $param = array(
+         $riderID 
+        );
+        return DBhelper::sp_SelectWithParams($stored_procedure, $param);
     }
 }

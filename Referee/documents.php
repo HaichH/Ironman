@@ -102,7 +102,7 @@ img {
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="Referee/?action=dashboard">
+            <a class="nav-link" href="index.php?action=dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -119,7 +119,7 @@ img {
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="Referee/index.html">Dashboard</a>
+                <a href="index.php?action=dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Documents</li>
           </ol>
@@ -136,7 +136,7 @@ img {
                   <div class="container">
                       <h4>Administered Penalties <span>(Download)</span></h4> 
                     <p>Get a list of athletes who have served their penalties</p>
-                    <div onclick=""><span class="fa fa-download"></span></div>
+                    <a href="index.php?action=pdf_admin"><div><span class="fa fa-download"></span></div></a>
                   </div>
               </div>
               
@@ -146,7 +146,7 @@ img {
                   <div class="container">
                     <h4><b>Disqualified Athletes <span>(Download)</span></b></h4> 
                     <p>Get a list of athletes who have been eliminated </p>
-                    <div onclick=""><span class="fa fa-download"></span></div>
+                    <a href="index.php?action=pdf_dis"><div><span class="fa fa-download"></span></div></a>
                   </div>
               </div>
               
@@ -156,7 +156,7 @@ img {
                   <div class="container">
                       <h4><b>UN-Administered Penalties <span>(Download)</span></b></h4> 
                     <p>Get a list of athletes still going to serve a penalty</p>
-                    <div onclick="getUnAdministered()"><span class="fa fa-download"></span></div>
+                    <a href="index.php?action=pdf_un_admin"><div><span class="fa fa-download"></span></div></a>
                   </div>
               </div>
               
@@ -165,9 +165,13 @@ img {
                    <!-- For a specific athlete -->
                    <div class="container">
                     <h4><b>Get Athlete History</b></h4>
-                    <input type="number" placeholder="Athlete ID" name="ath_id"> <input type="button" value="Search">
+                    <form method="GET" action="index.php">
+                        <input type="hidden" value="pdf_history" name="action">
+                    <input type="number" placeholder="Athlete ID" name="ath_id" required> 
+                    <input type="submit" value="Search">
                     <p>Enter Athlete number above and get athletes entire history</p>
-                    <div onclick=""><span class="fa fa-download"></span></div>
+                    </form>
+<!--                    <div onclick=""><span class="fa fa-download"></span></div>-->
                    </div>
               </div>
               
@@ -191,7 +195,7 @@ img {
     <!-- /#wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="Referee/#page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
 
@@ -214,32 +218,56 @@ img {
       </div>
     </div>
 
+    
     <script>
-        //Will later move this script to the main javascript repository 
-        function getAdministered(){
-            
-        }
+        //This script will just auto download the content as if the page didn't really make a postback for data collection
         
-        function getDisqualified(){
-            
-        }
-        
-        function getUnAdministered(){
-            //RacerID	RacerSurname	PenaltyTime	TicketID	TicketName
-            //4444	Legodi          08:59:53.0000000  3             Blue
-        var dd = {
+        <?php if($action==='pdf_admin'):?>
+            var dd = {
         content: [
           {
-
             table: {
-              // headers are automatically repeated if the table spans over multiple pages
-              // you can declare how many rows should be treated as headers
               headerRows: 1,
               widths: [ '*', '*','*', '*' ],
-
-              body: [
-
-                
+              body: [                
+                [ "Racer ID", "Racer Surname", "Racer Arrival", "Ticket Name" ],
+                <?php for($i =0; $i< count($adminstered);$i++): ?>
+             <?php    echo '["'.$adminstered[$i][0].'","'.$adminstered[$i][1].'","'.$adminstered[$i][2].'","'.$adminstered[$i][4].'"],'; ?>                        
+                <?php endfor; ?>
+        ]
+      }
+    }
+  ]
+}; 
+       pdfMake.createPdf(dd).download('iroman_administered_penalties.pdf');
+         
+         <?php elseif($action==='pdf_dis'):?>
+var dd = {
+        content: [
+          {
+            table: {
+              headerRows: 1,
+              widths: [ '*', '*','*', '*' ],
+              body: [                
+                [ "Racer ID", "Racer Surname", "Red Tickets", "Blue Tickets" ],
+                <?php for($i =0; $i< count($disq);$i++): ?>
+             <?php    echo '["'.$disq[$i][0].'","'.$disq[$i][1].'","'.$disq[$i][2].'","'.$disq[$i][3].'"],'; ?>                        
+                <?php endfor; ?>
+        ]
+      }
+    }
+  ]
+}; 
+       pdfMake.createPdf(dd).download('ironman_disqualified_atheletes.pdf');
+             
+         <?php elseif($action==='pdf_un_admin'):?>
+var dd = {
+        content: [
+          {
+            table: {
+              headerRows: 1,
+              widths: [ '*', '*','*', '*' ],
+              body: [                
                 [ "Racer ID", "Racer Surname", "Penalty Time", "Ticket Name" ],
                 <?php for($i =0; $i< count($un_admin);$i++): ?>
              <?php    echo '["'.$un_admin[$i][0].'","'.$un_admin[$i][1].'","'.$un_admin[$i][2].'","'.$un_admin[$i][4].'"],'; ?>                        
@@ -249,16 +277,28 @@ img {
     }
   ]
 }; 
-       pdfMake.createPdf(dd).download('compile.pdf');	
-       }
-        
-        function getAthleteHistory(){
-            
-        }
-    </script>
-    
-    <script>
-        //This script is to call the methods and auto-download the content as if it the page didn't make a postback
+       pdfMake.createPdf(dd).download('ironman_unadministered_penalties.pdf');
+             
+         <?php elseif($action==='pdf_history'): ?> 
+var dd = {
+        content: [
+          {
+            table: {
+              headerRows: 1,
+              widths: [ '*', '*','*', '*' ],
+              body: [                
+                [ "Racer ID", "Racer Surname", "Penalty Time", "Ticket Name" ],
+                <?php for($i =0; $i< count($history);$i++): ?>
+             <?php    echo '["'.$history[$i][0].'","'.$history[$i][1].'","'.$history[$i][2].'","'.$history[$i][4].'"],'; ?>                        
+                <?php endfor; ?>
+        ]
+      }
+    }
+  ]
+}; 
+       pdfMake.createPdf(dd).download('ironman_athlete_history.pdf');
+              
+        <?php endif; ?>
     </script>
     
   </body>
